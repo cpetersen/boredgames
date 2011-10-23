@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<title>Bored Games</title>
+		<script src="/jquery-1.6.4.min.js"></script>
+		<script src="/jquery-ui-1.8.16.custom.min.js"></script>
+		<script src="/nowjs/now.js"></script>
+		<style>
+			#board { width: 500px; height: 300px; margin: 100px auto 0 auto; border: 1px solid red; }
+			.piece { position: relative; }
+		</style>
+	</head>
+	<body>
+		<div id="board">
+			<img src="/bullet_ball_blue.png" id="piece-1" class="piece" />
+			<img src="/bullet_ball_blue.png" id="piece-2" class="piece" />
+			<img src="/bullet_ball_blue.png" id="piece-3" class="piece" />
+			<img src="/bullet_ball_blue.png" id="piece-4" class="piece" />
+			<img src="/bullet_ball_blue.png" id="piece-5" class="piece" />
+			<img src="/bullet_ball_blue.png" id="piece-6" class="piece" />
+		</div>
+		<pre id="log">
+		</pre>
+		<script>
+			$(document).ready(function(){
+
+				var current_piece = null;
+				$(".piece").draggable({
+					start: function(event, ui) {
+						current_piece = $(ui.helper).attr("id");
+					},
+					drag: function(event, ui) {
+						position = {
+							top: $(ui.helper).position().top - $("#board").position().top,
+							left: $(ui.helper).position().left - $("#board").position().left
+						};
+						now.move_server_piece($(ui.helper).attr("id"), position);
+						// $("#log").text($("#log").text() + "\n" + $(ui.helper).attr("id") + ", " + ui.position.left + ", " + ui.position.top + ", " + $(ui.helper).position().left + ", " + $(ui.helper).position().top );
+					},
+					stop: function(event, ui) {
+						current_piece = null;
+					}
+				});
+
+				now.move_client_piece = function(id, position) {
+					if(id != current_piece) {
+						new_position = {
+							top: $("#board").position().top + position.top,
+							left: $("#board").position().left + position.left
+						};
+				  	$("#"+id).offset(new_position);
+						// $("#log").text($("#log").text() + "\n" + id + ", " + position.left + ", " + position.top);
+					}
+				};
+			});
+		</script>
+	</body>
+</html>
