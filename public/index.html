@@ -5,22 +5,59 @@
 		<script src="/jquery-ui-1.8.16.custom.min.js"></script>
 		<script src="/nowjs/now.js"></script>
 		<style>
-			#board { width: 500px; height: 300px; margin: 100px auto 0 auto; border: 1px solid red; }
-			.piece { position: relative; }
+			body { background-image: url(/images/background.png); background-position: center; }
+			#board { width: 693px; height: 693px; margin: 100px auto 0 auto; background-image: url(/images/board.png); border: 5px solid black; }
+			.piece { position: absolute; width: 86px; height: 86px; }
+			.piece.white { top: 100px; left: 5px; background-image: url(/images/white-piece.png); }
+			.piece.black { top: 400px; left: 5px; background-image: url(/images/black-piece.png); }
 		</style>
 	</head>
 	<body>
 		<div id="board">
-			<img src="/bullet_ball_blue.png" id="piece-1" class="piece" />
-			<img src="/bullet_ball_blue.png" id="piece-2" class="piece" />
-			<img src="/bullet_ball_blue.png" id="piece-3" class="piece" />
-			<img src="/bullet_ball_blue.png" id="piece-4" class="piece" />
-			<img src="/bullet_ball_blue.png" id="piece-5" class="piece" />
-			<img src="/bullet_ball_blue.png" id="piece-6" class="piece" />
+			<div id="white-1"  class="piece white" ></div>
+			<div id="white-2"  class="piece white" ></div>
+			<div id="white-3"  class="piece white" ></div>
+			<div id="white-4"  class="piece white" ></div>
+			<div id="white-5"  class="piece white" ></div>
+			<div id="white-6"  class="piece white" ></div>
+			<div id="white-7"  class="piece white" ></div>
+			<div id="white-8"  class="piece white" ></div>
+			<div id="white-9"  class="piece white" ></div>
+			<div id="white-10" class="piece white" ></div>
+			<div id="white-11" class="piece white" ></div>
+			<div id="white-12" class="piece white" ></div>
+                                             
+			<div id="black-1"  class="piece black" ></div>
+			<div id="black-2"  class="piece black" ></div>
+			<div id="black-3"  class="piece black" ></div>
+			<div id="black-4"  class="piece black" ></div>
+			<div id="black-5"  class="piece black" ></div>
+			<div id="black-6"  class="piece black" ></div>
+			<div id="black-7"  class="piece black" ></div>
+			<div id="black-8"  class="piece black" ></div>
+			<div id="black-9"  class="piece black" ></div>
+			<div id="black-10" class="piece black" ></div>
+			<div id="black-11" class="piece black" ></div>
+			<div id="black-12" class="piece black" ></div>
 		</div>
 		<pre id="log">
 		</pre>
 		<script>
+			function log(message) {
+				$("#log").text($("#log").text() + "\n" + message);
+			}
+			
+			function place_piece(id, left, top) {
+				new_left = $("#board").position().left + left + 5;
+				new_top = 105 + top;
+				// easeInOutCubic
+				// easeInOutExpo
+				// easeInOutQuint
+				// easeInOutCirc
+				// http://jqueryui.com/demos/effect/easing.html
+				$("#"+id).animate(  { left: new_left+"px",  top: new_top+"px"   }, { duration: 2000, easing: "easeInOutExpo" } );
+			}
+			
 			$(document).ready(function(){
 
 				var current_piece = null;
@@ -51,6 +88,32 @@
 						// $("#log").text($("#log").text() + "\n" + id + ", " + position.left + ", " + position.top);
 					}
 				};
+
+				place_piece("white-1" , 86	, 0		);
+				place_piece("white-2" , 260	,	0		);
+				place_piece("white-3" , 433	,	0		);
+				place_piece("white-4" , 606	,	0		);
+				place_piece("white-5" , 0		, 86	);
+				place_piece("white-6" , 173	,	86	);
+				place_piece("white-7" , 347	,	86	);
+				place_piece("white-8" , 520	,	86	);
+				place_piece("white-9" , 86	, 173	);
+				place_piece("white-10", 260	,	173	);
+				place_piece("white-11", 433	,	173	);
+				place_piece("white-12", 606	,	173	);
+                                       
+				place_piece("black-1" , 0		, 433	);
+				place_piece("black-2" , 173	,	433	);
+				place_piece("black-3" , 347	,	433	);
+				place_piece("black-4" , 520	,	433	);
+				place_piece("black-5" , 86	, 520	);
+				place_piece("black-6" , 260	,	520	);
+				place_piece("black-7" , 433	,	520	);
+				place_piece("black-8" , 606	,	520	);
+				place_piece("black-9" , 0		, 606	);
+				place_piece("black-10", 173	,	606	);
+				place_piece("black-11", 347	,	606	);
+				place_piece("black-12", 520	,	606	);
 			});
 		</script>
 	</body>
