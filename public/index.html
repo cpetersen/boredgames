@@ -6,7 +6,7 @@
 		<script src="/nowjs/now.js"></script>
 		<style>
 			body { background-image: url(/images/background.png); background-position: center; }
-			#board { width: 693px; height: 693px; margin: 100px auto 0 auto; background-image: url(/images/board.png); border: 5px solid black; }
+			#board { width: 693px; height: 693px; margin: 100px auto 0 auto; background-image: url(/images/board.png); border: 10px solid black; }
 			.piece { position: absolute; width: 86px; height: 86px; }
 			.piece.white { top: 100px; left: 5px; background-image: url(/images/white-piece.png); }
 			.piece.black { top: 400px; left: 5px; background-image: url(/images/black-piece.png); }
@@ -40,16 +40,14 @@
 			<div id="black-11" class="piece black" ></div>
 			<div id="black-12" class="piece black" ></div>
 		</div>
-		<pre id="log">
-		</pre>
 		<script>
 			function log(message) {
 				$("#log").text($("#log").text() + "\n" + message);
 			}
 			
 			function place_piece(id, left, top) {
-				new_left = $("#board").position().left + left + 5;
-				new_top = 105 + top;
+				new_left = $("#board").position().left + left + 10;
+				new_top = 110 + top;
 				// easeInOutCubic
 				// easeInOutExpo
 				// easeInOutQuint
@@ -71,7 +69,6 @@
 							left: $(ui.helper).position().left - $("#board").position().left
 						};
 						now.move_server_piece($(ui.helper).attr("id"), position);
-						// $("#log").text($("#log").text() + "\n" + $(ui.helper).attr("id") + ", " + ui.position.left + ", " + ui.position.top + ", " + $(ui.helper).position().left + ", " + $(ui.helper).position().top );
 					},
 					stop: function(event, ui) {
 						current_piece = null;
@@ -85,9 +82,12 @@
 							left: $("#board").position().left + position.left
 						};
 				  	$("#"+id).offset(new_position);
-						// $("#log").text($("#log").text() + "\n" + id + ", " + position.left + ", " + position.top);
 					}
 				};
+				
+				now.start = function() {
+			    now.changeRoom( window.location.hash );
+	      };
 
 				place_piece("white-1" , 86	, 0		);
 				place_piece("white-2" , 260	,	0		);
@@ -114,6 +114,7 @@
 				place_piece("black-10", 173	,	606	);
 				place_piece("black-11", 347	,	606	);
 				place_piece("black-12", 520	,	606	);
+				
 			});
 		</script>
 	</body>

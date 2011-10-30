@@ -17,23 +17,16 @@ app.configure('production', function(){
 });
 
 everyone.now.move_server_piece = function(name, position) {
-	everyone.now.move_client_piece(name, position);
+	// everyone.now.move_client_piece(name, position);
+	nowjs.getGroup(this.now.room).now.move_client_piece(name, position);
 }
 
+everyone.now.changeRoom = function(newRoom) {
+  nowjs.getGroup(this.now.room).removeUser(this.user.clientId);
+  nowjs.getGroup(newRoom).addUser(this.user.clientId);
+  this.now.room = newRoom;
+}
 
-// var primaryKey = 0;
-// everyone.connected(
-//     function(){
-//         // this.now.uuid = ++primaryKey;
-//     }
-// );
-// everyone.now.syncPosition = function( position ){
-//   // everyone.now.filterUpdateBroadcast( this.now.uuid, position );
-//   everyone.now.filterUpdateBroadcast( this.now.uuid, position );
-// };
-// everyone.now.filterUpdateBroadcast = function( masterUUID, position ){
-//     if (this.now.uuid == masterUUID){
-//         return;
-//     }
-//     everyone.now.updatePosition( position );
-// };
+nowjs.on('connect', function() {
+  this.now.start();
+});
