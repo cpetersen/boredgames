@@ -1,10 +1,14 @@
 {
-  "name": "boredgames",
+  "name": "boredgam.es",
   "subdomain": "cpetersen.boredgames",
+  "domains": [
+    "boredgam.es",
+    "www.boredgam.es",
+  ],
   "scripts": {
     "start": "app.js"
   },
-  "version": "0.0.0",
+  "version": "0.0.0-1",
   "engines": {
     "node": "0.8.x"
   },
