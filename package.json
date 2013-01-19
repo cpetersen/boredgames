@@ -3,7 +3,7 @@
   "subdomain": "cpetersen.boredgames",
   "domains": [
     "boredgam.es",
-    "www.boredgam.es",
+    "www.boredgam.es"
   ],
   "scripts": {
     "start": "app.js"
